@@ -9,6 +9,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface,
     Symfony\Component\Security\Core\Authentication\AuthenticationManagerInterface,
     Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken,
     Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException,
+    Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface,
     Symfony\Component\Security\Core\SecurityContextInterface,
     Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface,
     Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface,
@@ -19,7 +20,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface,
 
 class LdapListener extends AbstractAuthenticationListener
 {
-    public function __construct(SecurityContextInterface $securityContext,
+    public function __construct(TokenStorageInterface $tokenStorage,
                                 AuthenticationManagerInterface $authenticationManager,
                                 SessionAuthenticationStrategyInterface $sessionStrategy,
                                 HttpUtils $httpUtils,
@@ -32,7 +33,7 @@ class LdapListener extends AbstractAuthenticationListener
                                 CsrfProviderInterface $csrfProvider = null)
     {
         parent::__construct(
-            $securityContext,
+            $tokenStorage,
             $authenticationManager,
             $sessionStrategy,
             $httpUtils,
